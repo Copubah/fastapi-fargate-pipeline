@@ -3,6 +3,7 @@ import os
 
 app = FastAPI(title="FastAPI CI/CD Demo", version="1.0.0")
 
+
 @app.get("/")
 def read_root():
     return {
@@ -10,6 +11,7 @@ def read_root():
         "environment": os.getenv("ENVIRONMENT", "dev"),
         "version": "1.0.0"
     }
+
 
 @app.get("/health")
 def health_check():
