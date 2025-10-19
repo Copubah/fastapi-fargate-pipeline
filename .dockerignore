@@ -1,9 +1,48 @@
+# Version control
 .git
 .github
 .gitignore
+
+# Documentation
 README.md
-.pytest_cache
+*.md
+
+# Python
 __pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache
 .coverage
-.env
+htmlcov/
+.tox/
+.cache
+.mypy_cache
+.dmypy.json
+dmypy.json
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
 terraform/
+.env
+.env.*
+requirements-dev.txt
+Makefile
+pytest.ini

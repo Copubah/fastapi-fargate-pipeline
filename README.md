@@ -1,6 +1,6 @@
 # FastAPI Fargate Pipeline
 
-- A production-ready CI/CD pipeline for FastAPI applications deployed to AWS ECS Fargate using GitHub Actions and Terraform Infrastructure as Code.
+A production-ready CI/CD pipeline for FastAPI applications deployed to AWS ECS Fargate using GitHub Actions and Terraform Infrastructure as Code.
 
 ![CI/CD Pipeline](https://github.com/Copubah/fastapi-fargate-pipeline/workflows/CI/CD%20Pipeline/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
@@ -9,20 +9,20 @@
 ![Terraform](https://img.shields.io/badge/Terraform-%3E%3D1.0-purple.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## ✨ Features
+## Features
 
-- FastAPI Application** with built-in health checks and monitoring
-- **Docker Containerization** with multi-stage builds for optimization
-- **AWS ECS Fargate** serverless container deployment
-- **Application Load Balancer** with intelligent health checks
--  **GitHub Actions CI/CD** with automated testing and deployment
--  **Terraform Infrastructure as Code** for reproducible deployments
--  **CloudWatch Integration** for comprehensive logging and monitoring
--  **Security Best Practices** with IAM roles and ECR scanning
-- **Zero-downtime deployments** with rolling updates
--  **Auto-scaling capabilities** built into ECS Fargate
+- FastAPI Application with built-in health checks and monitoring
+- Docker Containerization with multi-stage builds for optimization
+- AWS ECS Fargate serverless container deployment
+- Application Load Balancer with intelligent health checks
+- GitHub Actions CI/CD with automated testing and deployment
+- Terraform Infrastructure as Code for reproducible deployments
+- CloudWatch Integration for comprehensive logging and monitoring
+- Security Best Practices with IAM roles and ECR scanning
+- Zero-downtime deployments with rolling updates
+- Auto-scaling capabilities built into ECS Fargate
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ```mermaid
 graph LR
@@ -36,9 +36,35 @@ graph LR
     I[Terraform] -->|Provisions| J[AWS Infrastructure]
 ```
 
-**Traffic Flow:**
+Traffic Flow:
 ```
 Internet → ALB → ECS Fargate → FastAPI Application
+```
+
+## Project Structure
+
+```
+fastapi-fargate-pipeline/
+├── app/                          # FastAPI application code
+│   ├── __init__.py
+│   ├── main.py                   # Main application file
+│   └── config.py                 # Configuration management
+├── tests/                        # Test suite
+│   ├── __init__.py
+│   └── test_main.py              # Unit tests
+├── terraform/terraform/          # Infrastructure as Code
+│   ├── main.tf                   # Main Terraform configuration
+│   ├── variables.tf              # Input variables
+│   └── outputs.tf                # Output values
+├── .github/workflows/            # CI/CD pipeline
+│   └── ci-cd.yml                 # GitHub Actions workflow
+├── Dockerfile                    # Container configuration
+├── requirements.txt              # Python dependencies
+├── requirements-dev.txt          # Development dependencies
+├── pytest.ini                   # Test configuration
+├── Makefile                      # Development commands
+├── .env.example                  # Environment variables template
+└── README.md                     # This file
 ```
 
 ## Quick Start Guide
@@ -68,8 +94,8 @@ aws configure
 
 #### Option B: GitHub Secrets (Required for CI/CD)
 Navigate to your repository on GitHub:
-1. Go to **Settings** → **Secrets and variables** → **Actions**
-2. Click **"New repository secret"**
+1. Go to Settings → Secrets and variables → Actions
+2. Click "New repository secret"
 3. Add the following secrets:
    - `AWS_ACCESS_KEY_ID`: Your AWS access key ID
    - `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key
@@ -90,7 +116,7 @@ terraform plan
 terraform apply
 ```
 
-**Expected Resources Created:**
+Expected Resources Created:
 - ECS Fargate Cluster
 - Application Load Balancer
 - ECR Repository
@@ -136,24 +162,24 @@ curl $(terraform output -raw load_balancer_url)/health
 
 ```
 fastapi-fargate-pipeline/
-├── 📂 app/                          # FastAPI application code
+├── app/                          # FastAPI application code
 │   ├── __init__.py
-│   └── main.py                      # Main application file
-├── 📂 tests/                        # Test suite
+│   └── main.py                   # Main application file
+├── tests/                        # Test suite
 │   ├── __init__.py
-│   └── test_main.py                 # Unit tests
-├── 📂 terraform/                    # Infrastructure as Code
-│   ├── main.tf                      # Main Terraform configuration
-│   ├── variables.tf                 # Input variables
-│   └── outputs.tf                   # Output values
-├── 📂 .github/
-│   └── 📂 workflows/
-│       └── deploy.yml               # CI/CD pipeline configuration
-├── 🐳 Dockerfile                    # Container configuration
-├── 📋 requirements.txt              # Python dependencies
-├── 🚫 .dockerignore                 # Docker build exclusions
-├── 🚫 .gitignore                    # Git exclusions
-└── 📖 README.md                     # This file
+│   └── test_main.py              # Unit tests
+├── terraform/                    # Infrastructure as Code
+│   ├── main.tf                   # Main Terraform configuration
+│   ├── variables.tf              # Input variables
+│   └── outputs.tf                # Output values
+├── .github/
+│   └── workflows/
+│       └── deploy.yml            # CI/CD pipeline configuration
+├── Dockerfile                    # Container configuration
+├── requirements.txt              # Python dependencies
+├── .dockerignore                 # Docker build exclusions
+├── .gitignore                    # Git exclusions
+└── README.md                     # This file
 ```
 
 ## Configuration & Customization
@@ -200,16 +226,16 @@ resource "aws_ecs_service" "app" {
 }
 ```
 
-## 🛡️ Security Features
+## Security Features
 
 ### Built-in Security Measures
 
-- 🔐 **IAM Roles**: Least privilege access for ECS tasks
-- 🔍 **ECR Scanning**: Automatic vulnerability scanning of Docker images
-- 🛡️ **Security Groups**: Network-level access controls
-- 🚫 **No Root Access**: Containers run as non-root user
-- 🔒 **HTTPS Ready**: Easy SSL/TLS certificate integration
-- 🗝️ **Secrets Management**: Secure handling of sensitive data
+- IAM Roles: Least privilege access for ECS tasks
+- ECR Scanning: Automatic vulnerability scanning of Docker images
+- Security Groups: Network-level access controls
+- No Root Access: Containers run as non-root user
+- HTTPS Ready: Easy SSL/TLS certificate integration
+- Secrets Management: Secure handling of sensitive data
 
 ### Recommended Security Enhancements
 
@@ -224,14 +250,14 @@ aws configservice put-configuration-recorder --configuration-recorder name=defau
 aws ec2 create-flow-logs --resource-type VPC --resource-ids vpc-12345678 --traffic-type ALL
 ```
 
-## 📊 Monitoring & Observability
+## Monitoring & Observability
 
 ### Built-in Monitoring
 
-- **CloudWatch Logs**: Centralized application logging
-- **ECS Container Insights**: Container-level metrics
-- **ALB Metrics**: Load balancer performance metrics
-- **Health Checks**: Application and infrastructure health monitoring
+- CloudWatch Logs: Centralized application logging
+- ECS Container Insights: Container-level metrics
+- ALB Metrics: Load balancer performance metrics
+- Health Checks: Application and infrastructure health monitoring
 
 ### Custom Monitoring Setup
 
@@ -283,21 +309,21 @@ aws cloudwatch put-metric-alarm \
   --comparison-operator "GreaterThanThreshold"
 ```
 
-## 🔄 CI/CD Pipeline Details
+## CI/CD Pipeline Details
 
 ### Pipeline Stages
 
-1. **🧪 Test Stage**
+1. Test Stage
    - Run unit tests with pytest
    - Code linting with flake8
    - Security scanning (optional)
 
-2. **🏗️ Build Stage**
+2. Build Stage
    - Build Docker image
    - Run security scans
    - Push to ECR
 
-3. **🚀 Deploy Stage**
+3. Deploy Stage
    - Update ECS service
    - Health check validation
    - Rollback on failure
@@ -318,18 +344,18 @@ env:
 ### Branch Protection
 
 Set up branch protection rules:
-1. Go to **Settings** → **Branches**
+1. Go to Settings → Branches
 2. Add rule for `main` branch
 3. Enable:
    - Require pull request reviews
    - Require status checks to pass
    - Require branches to be up to date
 
-## 🚨 Troubleshooting Guide
+## Troubleshooting Guide
 
 ### Common Issues & Solutions
 
-#### 🔴 Terraform Apply Fails
+#### Terraform Apply Fails
 
 ```bash
 # Check AWS credentials
@@ -342,15 +368,15 @@ terraform validate
 terraform refresh
 ```
 
-#### 🔴 GitHub Actions Deployment Fails
+#### GitHub Actions Deployment Fails
 
-**Check these items:**
-- ✅ AWS credentials are correctly set in GitHub Secrets
-- ✅ IAM user has necessary permissions
-- ✅ ECR repository exists and is accessible
-- ✅ ECS cluster is running
+Check these items:
+- AWS credentials are correctly set in GitHub Secrets
+- IAM user has necessary permissions
+- ECR repository exists and is accessible
+- ECS cluster is running
 
-**Debug commands:**
+Debug commands:
 ```bash
 # Check ECS service status
 aws ecs describe-services --cluster fastapi-app --services fastapi-app
@@ -359,7 +385,7 @@ aws ecs describe-services --cluster fastapi-app --services fastapi-app
 aws logs describe-log-groups --log-group-name-prefix "/ecs/fastapi-app"
 ```
 
-#### 🔴 Application Not Responding
+#### Application Not Responding
 
 ```bash
 # Check ALB target health
@@ -372,7 +398,7 @@ aws ecs describe-tasks --cluster fastapi-app --tasks <task-arn>
 aws logs get-log-events --log-group-name "/ecs/fastapi-app" --log-stream-name <stream-name>
 ```
 
-#### 🔴 Docker Build Issues
+#### Docker Build Issues
 
 ```bash
 # Build locally to debug
@@ -387,7 +413,7 @@ curl -f http://localhost:8000/health
 
 ### Performance Optimization
 
-#### 🚀 Application Performance
+#### Application Performance
 
 ```python
 # Add caching to your FastAPI app
@@ -400,7 +426,7 @@ async def startup():
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
 ```
 
-#### 🚀 Infrastructure Performance
+#### Infrastructure Performance
 
 ```hcl
 # Optimize ECS task definition
@@ -410,7 +436,7 @@ resource "aws_ecs_task_definition" "app" {
 }
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please follow these steps:
 
@@ -426,24 +452,43 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
-pip install -r requirements-dev.txt  # If you create this file
+make install-dev
+
+# Copy environment template
+cp .env.example .env
 
 # Run tests
-pytest tests/
+make test
 
 # Run application locally
-uvicorn app.main:app --reload
+make run
+```
+
+### Available Make Commands
+
+```bash
+make help          # Show available commands
+make install       # Install production dependencies
+make install-dev   # Install development dependencies
+make test          # Run tests
+make test-cov      # Run tests with coverage
+make lint          # Run linting
+make format        # Format code
+make security      # Run security checks
+make clean         # Clean up cache files
+make run           # Run application locally
+make docker-build  # Build Docker image
+make docker-run    # Run Docker container
 ```
 
 ### Contribution Guidelines
 
-1. 🍴 **Fork** the repository
-2. 🌿 **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. ✅ **Add tests** for your changes
-4. 📝 **Commit** your changes (`git commit -m 'Add amazing feature'`)
-5. 📤 **Push** to the branch (`git push origin feature/amazing-feature`)
-6. 🔃 **Open** a Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Add tests for your changes
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
 
 ### Code Standards
 
@@ -452,7 +497,7 @@ uvicorn app.main:app --reload
 - Include docstrings for functions
 - Maintain test coverage above 80%
 
-## 📚 Additional Resources
+## Additional Resources
 
 ### Documentation Links
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
@@ -470,7 +515,7 @@ uvicorn app.main:app --reload
 - [AWS Developers Slack](https://awsdevelopers.slack.com/)
 - [Terraform Community](https://discuss.hashicorp.com/c/terraform-core)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -498,21 +543,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## 🙋‍♂️ Support & Contact
+## Support & Contact
 
 If you need help or have questions:
 
-- 📧 **Create an Issue**: [GitHub Issues](https://github.com/Copubah/fastapi-fargate-pipeline/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/Copubah/fastapi-fargate-pipeline/discussions)
-- 🌟 **Star this repo** if it helped you!
+- Create an Issue: [GitHub Issues](https://github.com/Copubah/fastapi-fargate-pipeline/issues)
+- Discussions: [GitHub Discussions](https://github.com/Copubah/fastapi-fargate-pipeline/discussions)
+- Star this repo if it helped you!
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by [Copubah](https://github.com/Copubah)**
+Built with love by [Copubah](https://github.com/Copubah)
 
-If this project helped you, please consider giving it a ⭐!
+If this project helped you, please consider giving it a star!
 
 [⬆ Back to Top](#fastapi-fargate-pipeline)
 
